@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Origins IVF - Book a Consultation</title>
+    <style>
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #E0F7FA; display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 100vh; margin: 0; padding: 20px; box-sizing: border-box; }
+        h1 { color: #008080; font-size: 36px; margin-bottom: 20px; font-weight: bold; }
+        .container { background: white; padding: 40px; border-radius: 15px; box-shadow: 0 10px 25px rgba(0,0,0,0.05); width: 100%; max-width: 450px; }
+        .form-group { margin-bottom: 15px; }
+        label { display: block; margin-bottom: 5px; color: #333; font-weight: 500; font-size: 15px; }
+        input, select, textarea { width: 100%; padding: 12px; border: 1px solid #ccc; border-radius: 6px; box-sizing: border-box; font-size: 15px; font-family: inherit; }
+        input:focus, select:focus, textarea:focus { outline: none; border-color: #0ABAB5; }
+        .checkbox-group { display: flex; align-items: center; margin: 20px 0; }
+        .checkbox-group input { margin-right: 10px; width: 18px; height: 18px; accent-color: #0ABAB5; }
+        .checkbox-group label { margin: 0; font-size: 15px; }
+        button { width: 100%; padding: 14px; background-color: #0ABAB5; color: white; border: none; border-radius: 30px; cursor: pointer; font-size: 16px; font-weight: 600; margin-top: 10px; }
+        button:hover { background-color: #08908C; }
+        .message { text-align: center; margin-top: 15px; font-weight: bold; }
+        
+        /* Clean Textarea with WhatsApp-style Mic Icon */
+        .textarea-wrapper { position: relative; }
+        .textarea-wrapper textarea { padding-right: 45px; padding-bottom: 35px; resize: vertical; }
+        
+        /* Language Toggles */
+        .lang-toggles {
+            position: absolute;
+            bottom: 8px;
+            left: 10px;
+            display: flex;
+            gap: 8px;
+            font-size: 11px;
+            font-weight: bold;
+            color: #999;
+        }
+        .lang-toggles span { cursor: pointer; padding: 2px 4px; border-radius: 4px; }
+        .lang-toggles span.active { color: #0ABAB5; background-color: #E0F7FA; }
+
+        /* Simple SVG Mic Icon */
+        .mic-icon-btn {
+            position: absolute;
+            bottom: 10px;
+            right: 12px;
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            padding: 0;
+            margin: 0;
+            width: auto;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .mic-icon-btn .mic-svg {
+            width: 22px;
+            height: 22px;
+            stroke: #0ABAB5;
+            stroke-width: 2;
+            fill: none;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+            transition: all 0.3s ease;
+        }
+        .mic-icon-btn.listening .mic-svg {
+            stroke: white;
+            animation: pulse-svg 1.5s infinite;
+        }
+        .mic-icon-btn.listening {
+            background-color: #0ABAB5;
+            border-radius: 50%;
+            width: 36px;
+            height: 36px;
+            bottom: 6px;
+            right: 8px;
+        }
+        @keyframes pulse-svg {
+            0% { stroke: white; filter: drop-shadow(0 0 0 rgba(10, 186, 181, 0.7)); }
+            50% { stroke: white; filter: drop-shadow(0 0 8px rgba(10, 186, 181, 0.7)); }
+            100% { stroke: white; filter: drop-shadow(0 0 0 rgba(10, 186, 181, 0)); }
+        }
+    </style>
+</head>
+<body>
+    <h1>Origins IVF</h1>
+    <div class="container">
+        <form id="leadForm">
+            <div class="form-group"><label for="name">Name *</label><input type="text" id="name" name="name" required></div>
+            <div class="form-group"><label for="profession">Profession *</label><select id="profession" name="profession" required><option value="" disabled selected>Select your profession</option><option value="Homemaker">Homemaker</option><option value="Salaried Professional">Salaried Professional</option><option value="Business / Self-Employed">Business / Self-Employed</option><option value="Medical Professional">Medical Professional</option><option value="Other">Other</option></select></div>
+            <div class="form-group"><label for="contact_number">Contact Number *</label><input type="tel" id="contact_number" name="contact_number" required></div>
+            <div class="form-group"><label for="email">Email (Optional)</label><input type="email" id="email" name="email"></div>
+            <div class="form-group"><label for="address">Address</label><input type="text" id="address" name="address"></div>
+            
+            <div class="form-group">
+                <label for="notes">Notes</label>
+                <div class="textarea-wrapper">
+                    <textarea id="notes" name="notes" rows="3"></textarea>
+                    <div class="lang-toggles">
+                        <span class="active" id="toggleTE" onclick="setLang('te-IN')">TE</span> | 
+                        <span id="toggleEN" onclick="setLang('en-IN')">EN</span>
+                    </div>
+                    <button type="button" id="micBtn" class="mic-icon-btn" title="Tap to speak">
+                        <svg class="mic-svg" viewBox="0 0 24 24"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"></path><path d="M19 10v2a7 7 0 0 1-14 0v-2"></path><line x1="12" y1="19" x2="12" y2="23"></line><line x1="8" y1="23" x2="16" y2="23"></line></svg>
+                    </button>
+                </div>
+            </div>
+
+            <div class="checkbox-group"><input type="checkbox" id="interested_callback" name="interested_callback"><label for="interested_callback">Interested for a call back?</label></div>
+            <button type="submit">Submit Inquiry</button>
+        </form>
+        <div id="message" class="message"></div>
+    </div>
+    <script>
+        document.getElementById('leadForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            const formData = { name: document.getElementById('name').value, profession: document.getElementById('profession').value, contact_number: document.getElementById('contact_number').value, email: document.getElementById('email').value, address: document.getElementById('address').value, notes: document.getElementById('notes').value, interested_callback: document.getElementById('interested_callback').checked };
+            const response = await fetch('/submit-lead', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(formData) });
+            const result = await response.json();
+            const msgDiv = document.getElementById('message');
+            msgDiv.innerText = result.message;
+            msgDiv.style.color = result.success ? '#0ABAB5' : 'red';
+            if(result.success) document.getElementById('leadForm').reset();
+        });
+
+        const micBtn = document.getElementById('micBtn');
+        const notesArea = document.getElementById('notes');
+        const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+        let currentLang = 'te-IN';
+
+        function setLang(lang) {
+            currentLang = lang;
+            document.getElementById('toggleTE').classList.toggle('active', lang === 'te-IN');
+            document.getElementById('toggleEN').classList.toggle('active', lang === 'en-IN');
+        }
+
+        if (SpeechRecognition) {
+            const recognition = new SpeechRecognition();
+            recognition.continuous = true;
+            recognition.interimResults = false;
+            let isListening = false;
+
+            micBtn.addEventListener('click', () => {
+                recognition.lang = currentLang;
+                if (!isListening) {
+                    recognition.start();
+                    micBtn.classList.add('listening');
+                } else {
+                    recognition.stop();
+                    micBtn.classList.remove('listening');
+                }
+                isListening = !isListening;
+            });
+
+            recognition.onresult = async (event) => {
+                const spokenText = event.results[event.results.length - 1][0].transcript;
+                
+                if (currentLang === 'te-IN') {
+                    try {
+                        const res = await fetch(`https://api.mymemory.translated.net/get?q=${encodeURIComponent(spokenText)}&langpair=te|en`);
+                        const data = await res.json();
+                        const translatedText = data.responseData ? data.responseData.translatedText : spokenText;
+                        notesArea.value += (notesArea.value ? ' ' : '') + translatedText;
+                    } catch (error) {
+                        notesArea.value += (notesArea.value ? ' ' : '') + spokenText;
+                    }
+                } else {
+                    notesArea.value += (notesArea.value ? ' ' : '') + spokenText;
+                }
+            };
+
+            recognition.onerror = (event) => {
+                isListening = false;
+                micBtn.classList.remove('listening');
+            };
+        } else {
+            micBtn.style.display = 'none';
+        }
+    </script>
+</body>
+</html>

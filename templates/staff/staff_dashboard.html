@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Origins IVF - Staff Dashboard</title>
+    <style>
+        :root { --tiffany: #0ABAB5; --tiffany-dark: #08908C; --tiffany-light: #E0F7FA; --bg: #F4F9F9; --text: #2C3E50; }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
+        body { background: var(--bg); color: var(--text); padding: 20px; }
+        
+        .header { background: var(--tiffany); color: white; padding: 15px 25px; border-radius: 8px; display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px; }
+        .header h2 { font-size: 18px; }
+        
+        .stats-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 15px; margin-bottom: 25px; }
+        .stat-card { background: white; padding: 15px; border-radius: 8px; border: 1px solid #E0E0E0; text-align: center; }
+        .stat-card .val { font-size: 24px; font-weight: bold; color: var(--text); }
+        .stat-card .label { font-size: 12px; color: #7F8C8D; margin-top: 5px; }
+
+        .filters-container { background: white; padding: 20px; border-radius: 8px; border: 1px solid #E0E0E0; margin-bottom: 20px; display: flex; gap: 15px; flex-wrap: wrap; align-items: center; }
+        .filter-group { display: flex; flex-direction: column; gap: 5px; flex: 1; min-width: 150px; }
+        .filter-group label { font-size: 12px; color: #7F8C8D; font-weight: 600; }
+        .filter-group select, .filter-group input { padding: 8px; border: 1px solid #ddd; border-radius: 6px; font-size: 14px; }
+        .btn-reset { background: #95A5A6; color: white; border: none; padding: 8px 16px; border-radius: 6px; cursor: pointer; margin-top: 18px; }
+
+        .table-container { background: white; border-radius: 8px; border: 1px solid #E0E0E0; overflow-x: auto; }
+        table { width: 100%; border-collapse: collapse; font-size: 14px; }
+        th { background: var(--tiffany-light); color: var(--tiffany-dark); text-align: left; padding: 12px; font-weight: 600; }
+        td { padding: 12px; border-bottom: 1px solid #E0E0E0; }
+    </style>
+</head>
+<body>
+
+    <div class="header">
+        <h2>Origins IVF - Staff Dashboard</h2>
+        <div>Lead management system</div>
+    </div>
+
+    <div class="stats-grid">
+        <div class="stat-card"><div class="val">0</div><div class="label">Total leads</div></div>
+        <div class="stat-card"><div class="val">0</div><div class="label">New leads</div></div>
+        <div class="stat-card"><div class="val">0</div><div class="label">Contacted</div></div>
+        <div class="stat-card"><div class="val">0</div><div class="label">Consultations booked</div></div>
+        <div class="stat-card"><div class="val">0</div><div class="label">Branches</div></div>
+    </div>
+
+    <div class="filters-container">
+        <div class="filter-group">
+            <label>Filter by branch</label>
+            <select><option>All branches</option><option>Hyderabad</option><option>Khammam</option><option>Sathupally</option><option>Warangal</option><option>Vikarabad</option></select>
+        </div>
+        <div class="filter-group">
+            <label>Filter by status</label>
+            <select><option>All statuses</option><option>New Lead</option><option>Contacted</option></select>
+        </div>
+        <!-- NEW FILTER ADDED HERE -->
+        <div class="filter-group">
+            <label>Filter by disposition</label>
+            <select><option>All dispositions</option><option>Interested</option><option>Not Interested</option><option>Callback Requested</option><option>Wrong Number</option></select>
+        </div>
+        <div class="filter-group">
+            <label>Search</label>
+            <input type="text" placeholder="Search by name or contact">
+        </div>
+        <button class="btn-reset">Reset filters</button>
+    </div>
+
+    <div class="table-container">
+        <table>
+            <thead>
+                <tr>
+                    <th>Lead ID</th><th>Name</th><th>Profession</th><th>Contact</th><th>Address</th>
+                    <th>Branch</th><th>Status</th><th>Disposition</th><th>Date</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr><td colspan="9" style="text-align:center; color:#999; padding: 20px;">No leads found. Data will appear here when patients submit the form.</td></tr>
+            </tbody>
+        </table>
+    </div>
+
+</body>
+</html>

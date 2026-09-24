@@ -1,0 +1,38 @@
+<style>
+    .sm-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
+    .sm-search { padding: 10px 15px; border: 1px solid #ddd; border-radius: 6px; width: 300px; font-size: 14px; }
+    .btn-add { background: #14b8a6; color: white; border: none; padding: 10px 20px; border-radius: 6px; cursor: pointer; font-weight: 600; font-size: 14px; }
+    .btn-add:hover { background: #0d9488; }
+    
+    .sm-table-container { background: white; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.05); overflow-x: auto; border: 1px solid #E0E0E0; }
+    table { width: 100%; border-collapse: collapse; font-size: 14px; }
+    th { background: #F8F9FA; color: #666; text-align: left; padding: 15px 12px; font-weight: 600; border-bottom: 2px solid #E0E0E0; font-size: 12px; text-transform: uppercase; }
+    td { padding: 15px 12px; border-bottom: 1px solid #F0F0F0; color: #333; }
+    td strong { color: #111; }
+    
+    .badge { padding: 4px 12px; border-radius: 20px; font-size: 12px; font-weight: 600; }
+    .badge-active { background: #E6F4EA; color: #1E7E34; }
+    .badge-inactive { background: #FCE8E6; color: #C53030; }
+    
+    .action-link { color: #14b8a6; text-decoration: none; font-weight: 600; margin-right: 10px; font-size: 13px; cursor: pointer; }
+    .action-link.deactivate { color: #C53030; }
+</style>
+
+<div class="sm-header">
+    <input type="text" class="sm-search" placeholder="Search staff by name or email...">
+    <button class="btn-add">+ Add Staff</button>
+</div>
+
+<div class="sm-table-container">
+    <table>
+        <thead>
+            <tr>
+                <th>Staff ID</th><th>Name</th><th>Email</th><th>Phone</th><th>Role</th>
+                <th>Position</th><th>Status</th><th>Created</th><th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr><td colspan="9" style="text-align:center; color:#999; padding: 30px;">No staff members added yet.</td></tr>
+        </tbody>
+    </table>
+</div>
