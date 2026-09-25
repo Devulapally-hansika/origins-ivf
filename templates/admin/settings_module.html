@@ -1,0 +1,97 @@
+<style>
+    .settings-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+    .settings-card { background: white; border-radius: 8px; padding: 25px; border: 1px solid #eaeaea; box-shadow: 0 1px 3px rgba(0,0,0,0.05); }
+    .settings-title { font-size: 18px; font-weight: 700; color: #1a202c; margin: 0 0 20px 0; }
+    .form-group { margin-bottom: 15px; position: relative; }
+    .form-group label { display: block; font-size: 14px; font-weight: 600; color: #2C3E50; margin-bottom: 8px; }
+    .form-group input { width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 6px; font-size: 14px; outline: none; box-sizing: border-box; }
+    .form-group input:focus { border-color: var(--tiffany); }
+    .btn-save { background: var(--tiffany); color: white; border: none; padding: 10px 20px; border-radius: 6px; font-weight: 600; cursor: pointer; font-size: 14px; margin-top: 10px; }
+    .btn-save:hover { background: var(--tiffany-dark); }
+
+    .toggle-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; }
+    .toggle-row label { font-size: 14px; font-weight: 600; color: #2C3E50; margin: 0; }
+    .switch { position: relative; display: inline-block; width: 44px; height: 24px; }
+    .switch input { opacity: 0; width: 0; height: 0; }
+    .slider { position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0; background-color: #CBD5E0; transition: .4s; border-radius: 24px; }
+    .slider:before { position: absolute; content: ""; height: 18px; width: 18px; left: 3px; bottom: 3px; background-color: white; transition: .4s; border-radius: 50%; box-shadow: 0 2px 4px rgba(0,0,0,0.2); }
+    input:checked + .slider { background-color: var(--tiffany); }
+    input:checked + .slider:before { transform: translateX(20px); }
+
+    .eye-icon { position: absolute; right: 12px; top: 36px; cursor: pointer; color: #718096; display: flex; align-items: center; }
+    .eye-icon svg { width: 20px; height: 20px; fill: currentColor; }
+    .eye-icon:hover { color: var(--tiffany); }
+</style>
+
+<div class="settings-grid">
+    <div class="settings-card">
+        <h3 class="settings-title">Admin profile</h3>
+        <div class="form-group"><label>Full name</label><input type="text" placeholder="Enter full name"></div>
+        <div class="form-group"><label>Email</label><input type="email" placeholder="Enter email"></div>
+        <div class="form-group"><label>Phone</label><input type="text" placeholder="Enter phone number"></div>
+        <button class="btn-save">Save profile</button>
+    </div>
+
+    <div class="settings-card">
+        <h3 class="settings-title">Change password</h3>
+        <div class="form-group">
+            <label>Current password</label>
+            <input type="password" id="pass1" placeholder="Enter current password">
+            <span class="eye-icon" onclick="togglePass('pass1', this)">
+                <svg class="eye-svg" viewBox="0 0 24 24"><path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/></svg>
+            </span>
+        </div>
+        <div class="form-group">
+            <label>New password</label>
+            <input type="password" id="pass2" placeholder="Enter new password">
+            <span class="eye-icon" onclick="togglePass('pass2', this)">
+                <svg class="eye-svg" viewBox="0 0 24 24"><path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/></svg>
+            </span>
+        </div>
+        <div class="form-group">
+            <label>Confirm new password</label>
+            <input type="password" id="pass3" placeholder="Confirm new password">
+            <span class="eye-icon" onclick="togglePass('pass3', this)">
+                <svg class="eye-svg" viewBox="0 0 24 24"><path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/></svg>
+            </span>
+        </div>
+        <button class="btn-save">Update password</button>
+    </div>
+
+    <div class="settings-card">
+        <h3 class="settings-title">Notification settings</h3>
+        <div class="toggle-row">
+            <label>Email notifications</label>
+            <label class="switch"><input type="checkbox" checked><span class="slider"></span></label>
+        </div>
+        <div class="toggle-row">
+            <label>WhatsApp lead alerts</label>
+            <label class="switch"><input type="checkbox" checked><span class="slider"></span></label>
+        </div>
+        <div class="toggle-row">
+            <label>SMS alerts</label>
+            <label class="switch"><input type="checkbox"><span class="slider"></span></label>
+        </div>
+    </div>
+
+    <div class="settings-card">
+        <h3 class="settings-title">General application settings</h3>
+        <div class="form-group"><label>Clinic display name</label><input type="text" placeholder="e.g. Origins IVF"></div>
+        <div class="form-group"><label>Default branch</label><input type="text" placeholder="Enter default branch"></div>
+        <button class="btn-save">Save settings</button>
+    </div>
+</div>
+
+<script>
+    function togglePass(id, icon) {
+        var input = document.getElementById(id);
+        var svg = icon.querySelector('.eye-svg');
+        if (input.type === "password") {
+            input.type = "text";
+            svg.innerHTML = '<path d="M12 7c2.76 0 5 2.24 5 5 0 .65-.13 1.26-.36 1.83l2.92 2.92c1.51-1.26 2.7-2.89 3.43-4.75-1.73-4.39-6-7.5-11-7.5-1.4 0-2.74.25-3.98.7l2.16 2.16c.57-.23 1.18-.36 1.83-.36zM2 4.27l2.28 2.28.46.46C3.08 8.3 1.78 10.02 1 12c1.73 4.39 6 7.5 11 7.5 1.55 0 3.03-.3 4.38-.84l.42.42L19.73 22 21 20.73 3.27 3 2 4.27zM7.53 9.8l1.55 1.55c-.05.21-.08.43-.08.65 0 1.66 1.34 3 3 3 .22 0 .44-.03.65-.08l1.55 1.55c-.67.33-1.41.53-2.2.53-2.76 0-5-2.24-5-5 0-.79.2-1.53.53-2.2zm4.31-.78l3.15 3.15.02-.16c0-1.66-1.34-3-3-3l-.17.01z"/>';
+        } else {
+            input.type = "password";
+            svg.innerHTML = '<path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/>';
+        }
+    }
+</script>
