@@ -1,0 +1,83 @@
+<style>
+    .ads-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
+    .ads-search { padding: 10px 15px; border: 1px solid #ddd; border-radius: 6px; width: 300px; font-size: 14px; outline: none; }
+    .ads-search:focus { border-color: var(--tiffany); }
+    .btn-add-ad { background: var(--tiffany); color: white; border: none; padding: 10px 20px; border-radius: 6px; font-weight: 600; cursor: pointer; font-size: 14px; }
+    .btn-add-ad:hover { background: var(--tiffany-dark); }
+    
+    .ads-table { width: 100%; border-collapse: collapse; background: white; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 4px rgba(0,0,0,0.05); }
+    
+    /* Matching Branch Management Header exactly */
+    .ads-table th { 
+        text-align: left; 
+        padding: 15px; 
+        background: var(--tiffany); 
+        color: white; 
+        font-weight: 600; 
+        font-size: 13px; 
+        text-transform: uppercase; 
+    }
+    
+    .ads-table td { padding: 15px; border-bottom: 1px solid #eee; font-size: 14px; color: #333; }
+    .ad-name { font-weight: 700; color: #2C3E50; }
+    
+    .status-badge { padding: 5px 12px; border-radius: 20px; font-size: 12px; font-weight: 600; display: inline-block; }
+    .status-active { background: #E6F9F8; color: #08908C; }
+    .status-inactive { background: #FEE2E2; color: #DC2626; }
+    
+    .action-link { text-decoration: none; font-weight: 600; font-size: 13px; margin-right: 10px; cursor: pointer; }
+    .action-edit { color: var(--tiffany); }
+    .action-toggle { color: #DC2626; }
+    .action-toggle.activate { color: var(--tiffany); }
+</style>
+
+<div class="ads-header">
+    <input type="text" class="ads-search" placeholder="Search advertisements...">
+    <button class="btn-add-ad">+ Add Advertisement</button>
+</div>
+
+<table class="ads-table">
+    <thead>
+        <tr>
+            <th>AD ID</th>
+            <th>AD NAME</th>
+            <th>PLATFORM</th>
+            <th>CAMPAIGN</th>
+            <th>STATUS</th>
+            <th>CREATED</th>
+            <th>ACTIONS</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% if advertisements %}
+            {% for ad in advertisements %}
+            <tr>
+                <td>{{ ad.id }}</td>
+                <td class="ad-name">{{ ad.name }}</td>
+                <td>{{ ad.platform }}</td>
+                <td>{{ ad.campaign }}</td>
+                <td>
+                    {% if ad.status == 'Active' %}
+                        <span class="status-badge status-active">Active</span>
+                    {% else %}
+                        <span class="status-badge status-inactive">Inactive</span>
+                    {% endif %}
+                </td>
+                <td>{{ ad.created_at }}</td>
+                <td>
+                    <a class="action-link action-edit">Edit</a>
+                    {% if ad.status == 'Active' %}
+                        <a class="action-link action-toggle">Deactivate</a>
+                    {% else %}
+                        <a class="action-link action-toggle activate">Activate</a>
+                    {% endif %}
+                </td>
+            </tr>
+            {% endfor %}
+        {% else %}
+            <tr>
+                <td colspan="7" style="text-align: center; color: #999; padding: 30px;">No advertisements added yet.</td>
+            </tr>
+        {% endif %}
+    </tbody>
+</table>
