@@ -1,0 +1,99 @@
+<style>
+    .search-card, .results-card {
+        background: white;
+        border-radius: 8px;
+        padding: 25px;
+        border: 1px solid #eaeaea;
+        margin-bottom: 20px;
+        box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+    }
+    .module-title, .results-title {
+        font-size: 18px;
+        font-weight: 700;
+        color: #1a202c;
+        margin: 0 0 20px 0;
+    }
+    .search-row {
+        display: flex;
+        gap: 20px;
+    }
+    .search-group {
+        flex: 1;
+    }
+    .search-group label {
+        display: block;
+        font-size: 14px;
+        font-weight: 600;
+        color: #2C3E50;
+        margin-bottom: 8px;
+    }
+    .input-btn-wrapper {
+        display: flex;
+        gap: 10px;
+    }
+    .search-input {
+        flex: 1;
+        padding: 10px 15px;
+        border: 1px solid #ddd;
+        border-radius: 6px;
+        font-size: 14px;
+        outline: none;
+    }
+    .search-input:focus {
+        border-color: var(--tiffany);
+    }
+    .search-btn {
+        background: var(--tiffany);
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 6px;
+        font-weight: 600;
+        font-size: 14px;
+        cursor: pointer;
+        transition: background 0.2s;
+    }
+    .search-btn:hover {
+        background: var(--tiffany-dark);
+    }
+    .empty-state {
+        text-align: center;
+        color: #718096;
+        padding: 40px 20px;
+        font-size: 14px;
+    }
+</style>
+
+<div class="search-card">
+    <h3 class="module-title">Global search</h3>
+    <div class="search-row">
+        <div class="search-group">
+            <label>Search by name</label>
+            <div class="input-btn-wrapper">
+                <input type="text" class="search-input" placeholder="e.g. Hansika">
+                <button class="search-btn">Search</button>
+            </div>
+        </div>
+        <div class="search-group">
+            <label>Search by campaign name</label>
+            <div class="input-btn-wrapper">
+                <input type="text" class="search-input" placeholder="e.g. Sep_Free_Consult">
+                <button class="search-btn">Search</button>
+            </div>
+        </div>
+        <div class="search-group">
+            <label>Search by branch</label>
+            <div class="input-btn-wrapper">
+                <input type="text" class="search-input" placeholder="e.g. Khammam">
+                <button class="search-btn">Search</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="results-card">
+    <h3 class="results-title">Results</h3>
+    <div class="empty-state">
+        Use a search box above to find a patient record.
+    </div>
+</div>

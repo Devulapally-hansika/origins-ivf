@@ -1,0 +1,81 @@
+<style>
+    .history-card {
+        background: white;
+        border-radius: 8px;
+        padding: 25px;
+        border: 1px solid #eaeaea;
+        box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+    }
+    .history-title {
+        font-size: 20px;
+        font-weight: 700;
+        color: #1a202c;
+        margin: 0 0 8px 0;
+    }
+    .history-subtitle {
+        font-size: 14px;
+        color: #718096;
+        margin: 0 0 25px 0;
+    }
+    .history-table {
+        width: 100%;
+        border-collapse: collapse;
+        background: white;
+        border-radius: 8px;
+        overflow: hidden;
+        border: 1px solid #eaeaea;
+    }
+    /* Solid Tiffany Blue Header matching Branch Management */
+    .history-table th {
+        text-align: left;
+        padding: 15px;
+        background: var(--tiffany);
+        color: white;
+        font-weight: 600;
+        font-size: 13px;
+        text-transform: uppercase;
+    }
+    .history-table td {
+        padding: 15px;
+        border-bottom: 1px solid #eee;
+        font-size: 14px;
+        color: #333;
+    }
+    .empty-state {
+        text-align: center;
+        color: #999;
+        padding: 30px;
+    }
+</style>
+
+<div class="history-card">
+    <h3 class="history-title">Change history</h3>
+    <p class="history-subtitle">Every activation, deactivation, enable/disable, or edit made in this system is recorded here automatically.</p>
+
+    <table class="history-table">
+        <thead>
+            <tr>
+                <th>TIMESTAMP</th>
+                <th>ACTION</th>
+                <th>DETAILS</th>
+                <th>PERFORMED BY</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% if change_logs %}
+                {% for log in change_logs %}
+                <tr>
+                    <td>{{ log.timestamp }}</td>
+                    <td>{{ log.action }}</td>
+                    <td>{{ log.details }}</td>
+                    <td>{{ log.performed_by }}</td>
+                </tr>
+                {% endfor %}
+            {% else %}
+                <tr>
+                    <td colspan="4" class="empty-state">No changes recorded yet.</td>
+                </tr>
+            {% endif %}
+        </tbody>
+    </table>
+</div>
