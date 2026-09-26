@@ -16,6 +16,24 @@
     
     .action-link { color: #14b8a6; text-decoration: none; font-weight: 600; margin-right: 10px; font-size: 13px; cursor: pointer; }
     .action-link.deactivate { color: #C53030; }
+
+    /* Modal Styles */
+    .staff-modal-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.4); z-index: 1000; justify-content: flex-end; }
+    .staff-modal-overlay.active { display: flex; }
+    .staff-modal-pane { background: white; width: 400px; height: 100%; padding: 30px; box-shadow: -5px 0 15px rgba(0,0,0,0.1); overflow-y: auto; animation: slideIn 0.3s ease-out; }
+    @keyframes slideIn { from { transform: translateX(100%); } to { transform: translateX(0); } }
+    .modal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px; }
+    .modal-header h3 { margin: 0; font-size: 20px; color: #2C3E50; }
+    .close-modal { background: none; border: none; font-size: 24px; cursor: pointer; color: #7F8C8D; }
+    .modal-form-group { margin-bottom: 15px; }
+    .modal-form-group label { display: block; font-size: 14px; font-weight: 600; color: #2C3E50; margin-bottom: 8px; }
+    .modal-actions { display: flex; gap: 10px; margin-top: 25px; }
+    .btn-cancel-modal { background: #E0E0E0; color: #2C3E50; border: none; padding: 10px 20px; border-radius: 6px; font-weight: 600; cursor: pointer; flex: 1; }
+    .btn-save-modal { background: #14b8a6; color: white; border: none; padding: 10px 20px; border-radius: 6px; font-weight: 600; cursor: pointer; flex: 1; }
+    
+    /* Eye Icon Styles */
+    .eye-icon svg { width: 20px; height: 20px; fill: currentColor; }
+    .eye-icon:hover { color: #14b8a6; }
 </style>
 
 <div class="sm-header">
@@ -36,3 +54,69 @@
         </tbody>
     </table>
 </div>
+
+<!-- SLIDING PANE (MODAL) -->
+<div id="staffModal" class="staff-modal-overlay">
+    <div class="staff-modal-pane">
+        <div class="modal-header">
+            <h3>Add staff member</h3>
+            <button class="close-modal" id="closeStaffModal">&times;</button>
+        </div>
+        <form onsubmit="event.preventDefault();">
+            <div class="modal-form-group"><label>Name</label><input type="text" placeholder="Enter name" style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 6px; font-size: 14px; outline: none; box-sizing: border-box;"></div>
+            <div class="modal-form-group"><label>Email</label><input type="email" placeholder="Enter email" style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 6px; font-size: 14px; outline: none; box-sizing: border-box;"></div>
+            <div class="modal-form-group"><label>Phone</label><input type="text" placeholder="Enter phone" style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 6px; font-size: 14px; outline: none; box-sizing: border-box;"></div>
+            <div class="modal-form-group"><label>Role</label><input type="text" placeholder="Enter role" style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 6px; font-size: 14px; outline: none; box-sizing: border-box;"></div>
+            <div class="modal-form-group"><label>Position</label><input type="text" placeholder="Enter position" style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 6px; font-size: 14px; outline: none; box-sizing: border-box;"></div>
+            
+            <div class="modal-form-group">
+                <label>Password</label>
+                <div style="position: relative;">
+                    <input type="password" id="modal_pass1" placeholder="Enter password" style="width: 100%; padding: 10px; padding-right: 40px; border: 1px solid #ddd; border-radius: 6px; font-size: 14px; outline: none; box-sizing: border-box;">
+                    <span class="eye-icon" onclick="togglePass('modal_pass1', this)" style="position: absolute; right: 12px; top: 50%; transform: translateY(-50%); cursor: pointer; color: #718096; display: flex; align-items: center;">
+                        <svg class="eye-svg" viewBox="0 0 24 24"><path d="M12 7c2.76 0 5 2.24 5 5 0 .65-.13 1.26-.36 1.83l2.92 2.92c1.51-1.26 2.7-2.89 3.43-4.75-1.73-4.39-6-7.5-11-7.5-1.4 0-2.74.25-3.98.7l2.16 2.16c.57-.23 1.18-.36 1.83-.36zM2 4.27l2.28 2.28.46.46C3.08 8.3 1.78 10.02 1 12c1.73 4.39 6 7.5 11 7.5 1.55 0 3.03-.3 4.38-.84l.42.42L19.73 22 21 20.73 3.27 3 2 4.27zM7.53 9.8l1.55 1.55c-.05.21-.08.43-.08.65 0 1.66 1.34 3 3 3 .22 0 .44-.03.65-.08l1.55 1.55c-.67.33-1.41.53-2.2.53-2.76 0-5-2.24-5-5 0-.79.2-1.53.53-2.2zm4.31-.78l3.15 3.15.02-.16c0-1.66-1.34-3-3-3l-.17.01z"/></svg>
+                    </span>
+                </div>
+            </div>
+            
+            <div class="modal-form-group">
+                <label>Confirm password</label>
+                <div style="position: relative;">
+                    <input type="password" id="modal_pass2" placeholder="Confirm password" style="width: 100%; padding: 10px; padding-right: 40px; border: 1px solid #ddd; border-radius: 6px; font-size: 14px; outline: none; box-sizing: border-box;">
+                    <span class="eye-icon" onclick="togglePass('modal_pass2', this)" style="position: absolute; right: 12px; top: 50%; transform: translateY(-50%); cursor: pointer; color: #718096; display: flex; align-items: center;">
+                        <svg class="eye-svg" viewBox="0 0 24 24"><path d="M12 7c2.76 0 5 2.24 5 5 0 .65-.13 1.26-.36 1.83l2.92 2.92c1.51-1.26 2.7-2.89 3.43-4.75-1.73-4.39-6-7.5-11-7.5-1.4 0-2.74.25-3.98.7l2.16 2.16c.57-.23 1.18-.36 1.83-.36zM2 4.27l2.28 2.28.46.46C3.08 8.3 1.78 10.02 1 12c1.73 4.39 6 7.5 11 7.5 1.55 0 3.03-.3 4.38-.84l.42.42L19.73 22 21 20.73 3.27 3 2 4.27zM7.53 9.8l1.55 1.55c-.05.21-.08.43-.08.65 0 1.66 1.34 3 3 3 .22 0 .44-.03.65-.08l1.55 1.55c-.67.33-1.41.53-2.2.53-2.76 0-5-2.24-5-5 0-.79.2-1.53.53-2.2zm4.31-.78l3.15 3.15.02-.16c0-1.66-1.34-3-3-3l-.17.01z"/></svg>
+                    </span>
+                </div>
+            </div>
+            
+            <div class="modal-form-group"><label>Status</label><input type="text" placeholder="Enter status" style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 6px; font-size: 14px; outline: none; box-sizing: border-box;"></div>
+            <div class="modal-actions">
+                <button type="button" class="btn-cancel-modal" id="cancelStaffModal">Cancel</button>
+                <button type="submit" class="btn-save-modal">Save</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script>
+    const modal = document.getElementById('staffModal');
+    document.querySelector('.btn-add').onclick = () => modal.classList.add('active');
+    document.getElementById('closeStaffModal').onclick = () => modal.classList.remove('active');
+    document.getElementById('cancelStaffModal').onclick = () => modal.classList.remove('active');
+    modal.onclick = (e) => { if(e.target === modal) modal.classList.remove('active'); }
+
+    function togglePass(id, icon) {
+        var input = document.getElementById(id);
+        var svg = icon.querySelector('.eye-svg');
+        var openEye = '<path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/>';
+        var closedEye = '<path d="M12 7c2.76 0 5 2.24 5 5 0 .65-.13 1.26-.36 1.83l2.92 2.92c1.51-1.26 2.7-2.89 3.43-4.75-1.73-4.39-6-7.5-11-7.5-1.4 0-2.74.25-3.98.7l2.16 2.16c.57-.23 1.18-.36 1.83-.36zM2 4.27l2.28 2.28.46.46C3.08 8.3 1.78 10.02 1 12c1.73 4.39 6 7.5 11 7.5 1.55 0 3.03-.3 4.38-.84l.42.42L19.73 22 21 20.73 3.27 3 2 4.27zM7.53 9.8l1.55 1.55c-.05.21-.08.43-.08.65 0 1.66 1.34 3 3 3 .22 0 .44-.03.65-.08l1.55 1.55c-.67.33-1.41.53-2.2.53-2.76 0-5-2.24-5-5 0-.79.2-1.53.53-2.2zm4.31-.78l3.15 3.15.02-.16c0-1.66-1.34-3-3-3l-.17.01z"/>';
+
+        if (input.type === "password") {
+            input.type = "text";
+            svg.innerHTML = openEye;
+        } else {
+            input.type = "password";
+            svg.innerHTML = closedEye;
+        }
+    }
+</script>
