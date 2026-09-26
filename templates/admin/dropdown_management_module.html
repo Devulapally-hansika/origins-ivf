@@ -21,6 +21,22 @@
     
     .action-link { color: #14b8a6; text-decoration: none; font-weight: 600; margin-right: 10px; font-size: 13px; cursor: pointer; }
     .action-link.remove { color: #C53030; }
+
+    /* Sliding Panel Styles */
+    .dm-modal-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.4); z-index: 1000; justify-content: flex-end; }
+    .dm-modal-overlay.active { display: flex; }
+    .dm-modal-pane { background: white; width: 400px; height: 100%; padding: 30px; box-shadow: -5px 0 15px rgba(0,0,0,0.1); overflow-y: auto; animation: slideIn 0.3s ease-out; }
+    @keyframes slideIn { from { transform: translateX(100%); } to { transform: translateX(0); } }
+    .dm-modal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px; }
+    .dm-modal-header h3 { margin: 0; font-size: 20px; color: #2C3E50; }
+    .dm-close-modal { background: none; border: none; font-size: 24px; cursor: pointer; color: #7F8C8D; }
+    .dm-form-group { margin-bottom: 15px; }
+    .dm-form-group label { display: block; font-size: 14px; font-weight: 600; color: #2C3E50; margin-bottom: 8px; }
+    .dm-form-group input { width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 6px; font-size: 14px; outline: none; box-sizing: border-box; }
+    .dm-form-group input:focus { border-color: #14b8a6; }
+    .dm-modal-actions { display: flex; gap: 10px; margin-top: 25px; }
+    .dm-btn-cancel { background: #E0E0E0; color: #2C3E50; border: none; padding: 10px 20px; border-radius: 6px; font-weight: 600; cursor: pointer; flex: 1; }
+    .dm-btn-save { background: #14b8a6; color: white; border: none; padding: 10px 20px; border-radius: 6px; font-weight: 600; cursor: pointer; flex: 1; }
 </style>
 
 <div class="dm-container">
@@ -29,13 +45,12 @@
     </div>
 
     <div class="dm-tabs">
-        <button class="dm-tab-outline">+ Add category</button>
+        <button class="dm-tab-outline" id="openCategoryModal">+ Add category</button>
     </div>
 
-    <!-- Added Add Option button back here -->
     <div class="dm-subheader">
         <p>Select a category to manage its options.</p>
-        <button class="btn-add">+ Add Option</button>
+        <button class="btn-add" id="openOptionModal">+ Add Option</button>
     </div>
 
     <div class="dm-table-container">
@@ -53,3 +68,47 @@
         </table>
     </div>
 </div>
+
+<!-- ADD CATEGORY PANEL -->
+<div id="categoryModal" class="dm-modal-overlay">
+    <div class="dm-modal-pane">
+        <div class="dm-modal-header">
+            <h3>Add category</h3>
+            <button class="dm-close-modal" onclick="document.getElementById('categoryModal').classList.remove('active')">&times;</button>
+        </div>
+        <form onsubmit="event.preventDefault();">
+            <div class="dm-form-group"><label>Category Name</label><input type="text" placeholder="Enter category name"></div>
+            <div class="dm-modal-actions">
+                <button type="button" class="dm-btn-cancel" onclick="document.getElementById('categoryModal').classList.remove('active')">Cancel</button>
+                <button type="submit" class="dm-btn-save">Save</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- ADD OPTION PANEL -->
+<div id="optionModal" class="dm-modal-overlay">
+    <div class="dm-modal-pane">
+        <div class="dm-modal-header">
+            <h3>Add option</h3>
+            <button class="dm-close-modal" onclick="document.getElementById('optionModal').classList.remove('active')">&times;</button>
+        </div>
+        <form onsubmit="event.preventDefault();">
+            <div class="dm-form-group"><label>Option Name</label><input type="text" placeholder="Enter option name"></div>
+            <div class="dm-form-group"><label>Category</label><input type="text" placeholder="Enter category"></div>
+            <div class="dm-form-group"><label>Status</label><input type="text" placeholder="Enter status"></div>
+            <div class="dm-modal-actions">
+                <button type="button" class="dm-btn-cancel" onclick="document.getElementById('optionModal').classList.remove('active')">Cancel</button>
+                <button type="submit" class="dm-btn-save">Save</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script>
+    document.getElementById('openCategoryModal').onclick = () => document.getElementById('categoryModal').classList.add('active');
+    document.getElementById('openOptionModal').onclick = () => document.getElementById('optionModal').classList.add('active');
+    
+    document.getElementById('categoryModal').onclick = (e) => { if(e.target.id === 'categoryModal') e.target.classList.remove('active'); };
+    document.getElementById('optionModal').onclick = (e) => { if(e.target.id === 'optionModal') e.target.classList.remove('active'); };
+</script>
