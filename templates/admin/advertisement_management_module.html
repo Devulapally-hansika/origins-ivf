@@ -29,11 +29,27 @@
     .action-edit { color: var(--tiffany); }
     .action-toggle { color: #DC2626; }
     .action-toggle.activate { color: var(--tiffany); }
+
+    /* Sliding Panel Styles */
+    .ads-modal-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.4); z-index: 1000; justify-content: flex-end; }
+    .ads-modal-overlay.active { display: flex; }
+    .ads-modal-pane { background: white; width: 400px; height: 100%; padding: 30px; box-shadow: -5px 0 15px rgba(0,0,0,0.1); overflow-y: auto; animation: slideIn 0.3s ease-out; }
+    @keyframes slideIn { from { transform: translateX(100%); } to { transform: translateX(0); } }
+    .ads-modal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px; }
+    .ads-modal-header h3 { margin: 0; font-size: 20px; color: #2C3E50; }
+    .ads-close-modal { background: none; border: none; font-size: 24px; cursor: pointer; color: #7F8C8D; }
+    .ads-form-group { margin-bottom: 15px; }
+    .ads-form-group label { display: block; font-size: 14px; font-weight: 600; color: #2C3E50; margin-bottom: 8px; }
+    .ads-form-group input { width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 6px; font-size: 14px; outline: none; box-sizing: border-box; }
+    .ads-form-group input:focus { border-color: var(--tiffany); }
+    .ads-modal-actions { display: flex; gap: 10px; margin-top: 25px; }
+    .ads-btn-cancel { background: #E0E0E0; color: #2C3E50; border: none; padding: 10px 20px; border-radius: 6px; font-weight: 600; cursor: pointer; flex: 1; }
+    .ads-btn-save { background: var(--tiffany); color: white; border: none; padding: 10px 20px; border-radius: 6px; font-weight: 600; cursor: pointer; flex: 1; }
 </style>
 
 <div class="ads-header">
     <input type="text" class="ads-search" placeholder="Search advertisements...">
-    <button class="btn-add-ad">+ Add Advertisement</button>
+    <button class="btn-add-ad" id="openAdModal">+ Add Advertisement</button>
 </div>
 
 <table class="ads-table">
@@ -81,3 +97,31 @@
         {% endif %}
     </tbody>
 </table>
+
+<!-- ADD ADVERTISEMENT PANEL -->
+<div id="adModal" class="ads-modal-overlay">
+    <div class="ads-modal-pane">
+        <div class="ads-modal-header">
+            <h3>Add advertisement</h3>
+            <button class="ads-close-modal" id="closeAdModal">&times;</button>
+        </div>
+        <form onsubmit="event.preventDefault();">
+            <div class="ads-form-group"><label>Ad Name</label><input type="text" placeholder="Enter ad name"></div>
+            <div class="ads-form-group"><label>Platform</label><input type="text" placeholder="Enter platform"></div>
+            <div class="ads-form-group"><label>Campaign</label><input type="text" placeholder="Enter campaign"></div>
+            <div class="ads-form-group"><label>Status</label><input type="text" placeholder="Enter status"></div>
+            <div class="ads-modal-actions">
+                <button type="button" class="ads-btn-cancel" id="cancelAdModal">Cancel</button>
+                <button type="submit" class="ads-btn-save">Save</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script>
+    const adModal = document.getElementById('adModal');
+    document.getElementById('openAdModal').onclick = () => adModal.classList.add('active');
+    document.getElementById('closeAdModal').onclick = () => adModal.classList.remove('active');
+    document.getElementById('cancelAdModal').onclick = () => adModal.classList.remove('active');
+    adModal.onclick = (e) => { if(e.target === adModal) adModal.classList.remove('active'); }
+</script>
